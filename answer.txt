@@ -1,0 +1,13 @@
+1. ketika terjadi 5xx error, langkah pertama megecek error 5xx tersebut codenya berapa. terdapat beberapa code 5xx error, mulai dari 500 - 510. yang biasanya muncul ketika saat banyak yang mengaksesnya adalah 504 atau 500.
+
+apabila 504 yang muncul kemungkinan server terlalu lambat dalam mengirimkan response ke pengguna
+apabila 500 yang muncul, maka terdapat error atau kesalahan pada sisi server, sehingga perlu melihat log pada server, dapat menggunakan "kubectl logs {nama pods}"
+
+2. untuk solusi error 504 dapat menambah konfigurasi "upscale" agar sumber daya dapat bertambah sementara sampai traffic pengguna tidak tinggi lagi
+
+untuk solusi error 500 diperbaiki sesuai dengan pesan error yang muncul pada log, seperti:
+ - error network, perlu dicek koneksi antara server dengan bagian2 yang diperlukan seperti koneksi ke docker hub untuk pull image
+ - error konfigurasi kubernetes manifest, memperbaiki file konfigurasinya
+ - error app, memperbaiki file main.go nya
+
+3. tools yang bisa digunakan untuk mitigasi hal yang sama diantaranya menginstall tools monitoring seperti, grafana, sentry, dan prometheus.
